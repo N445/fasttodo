@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="jumbotron shadow">
+        <h1 class="mb-5">Fast to do, le service de check liste en ligne sans inscription</h1>
+
+        <form action="{{ url('CREATE') }}" method="post">
+            <input type="hidden" name="token" value="{{ csrf_token('create') }}"/>
+            <button type="submit" class="btn btn-success btn-block btn-lg">
+                Créer ta check list
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
