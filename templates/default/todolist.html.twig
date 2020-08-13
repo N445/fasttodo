@@ -1,19 +1,53 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="container">
-    <form action="{{ url('CREATE') }}" method="post">
-        <input type="hidden" name="token" value="{{ csrf_token('updatename') }}"/>
-        <input type="text" name="name" value="{{ todolist.name }}"/>
-        <button type="submit" class="btn btn-success">
-            Modifier
-        </button>
-    </form>
-    <ul>
-        {% for item in todolist.items %}
-            <li>{{ item.title }}</li>
-        {% endfor %}
-    </ul>
-</div>
+    <div class="container" data-hash="{{ todolist.hash }}">
+        <form action="#" method="post" class="update-name">
+            <input type="hidden" name="token" value="{{ csrf_token('updatename') }}"/>
+            <div class="form-row align-items-center">
+                <div class="col-auto">
+                    <div class="form-check mb-2">
+                        <input type="text" name="name" class="form-control" value="{{ todolist.name }}"/>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-success">
+                        Modifier
+                    </button>
+                </div>
+            </div>
+        </form>
+        <hr>
+        <form action="#" method="post" class="add-item">
+            <input type="hidden" name="token" value="{{ csrf_token('add-item') }}"/>
+            <div class="form-row align-items-center">
+                <div class="col-auto">
+                    <div class="form-check mb-2">
+                        <input type="text" name="name" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-success">
+                        Ajouter
+                    </button>
+                </div>
+            </div>
+        </form>
+        <ul>
+            {% for item in todolist.items %}
+                <li>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input update-item" disabled id="{{ item.id }}">
+                        <label class="custom-control-label" for="{{ item.id }}">{{ item.title }}</label>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
 
+{% block javascripts %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script src="{{ asset('js/todolist.js') }}"></script>
+{% endblock %}
