@@ -18,7 +18,26 @@ class ItemRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Item::class);
     }
-
+    
+    /**
+     * @param string $hash
+     * @param int $id
+     * @return Item|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getByHashAndIs(string $hash, int $id)
+    {
+        return $this->createQueryBuilder('i')
+            ->addSelect('t')
+            ->andWhere('t.hash = :hash')
+            ->setParameter('hash', $hash)
+            ->andWhere('i.id = :id')
+            ->setParameter('id', $id)
+            ->leftJoin('i.todolist', 't')
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+    
     // /**
     //  * @return Item[] Returns an array of Item objects
     //  */
@@ -35,7 +54,7 @@ class ItemRepository extends ServiceEntityRepository
         ;
     }
     */
-
+    
     /*
     public function findOneBySomeField($value): ?Item
     {

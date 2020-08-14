@@ -33,21 +33,14 @@
                 </div>
             </div>
         </form>
-        <ul>
-            {% for item in todolist.items %}
-                <li>
-                    <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input update-item" disabled id="{{ item.id }}">
-                        <label class="custom-control-label" for="{{ item.id }}">{{ item.title }}</label>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
+        <div class="list">
+            {% include 'includes/todolist-items.html.twig' %}
+        </div>
     </div>
 {% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-    <script src="{{ asset('js/todolist.js') }}"></script>
+    <script src="{{ asset('js/todolist.js') }}?v=3"></script>
 {% endblock %}

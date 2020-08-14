@@ -1,0 +1,10 @@
+<ul>
+    {% for item in todolist.items %}
+        <li>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input update-item" id="{{ item.id }}">
+                <label class="custom-control-label" for="{{ item.id }}">{{ item.title }}</label>
+            </div>
+        </li>
+    {% endfor %}
+</ul>

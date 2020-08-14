@@ -12,5 +12,13 @@
             </button>
         </form>
     </div>
+
+    {% for todolist in todolists %}
+        <p>
+            <a href="{{ path('TODOLIST', {'hash': todolist.hash }) }}">
+                {{ todolist.name }} ({{ todolist.hash }})
+            </a>
+        </p>
+    {% endfor %}
 </div>
 {% endblock %}

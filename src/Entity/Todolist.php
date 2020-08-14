@@ -39,7 +39,7 @@ class Todolist
     private $createdAt;
     
     /**
-     * @ORM\OneToMany(targetEntity=Item::class, mappedBy="todolist")
+     * @ORM\OneToMany(targetEntity=Item::class, mappedBy="todolist",cascade={"persist","remove"})
      */
     private $items;
     

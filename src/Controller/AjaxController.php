@@ -102,7 +102,7 @@ class AjaxController extends AbstractController
             ]);
         }
         
-        if (!$this->isCsrfTokenValid('updatename', $submittedToken)) {
+        if (!$this->isCsrfTokenValid('add-item', $submittedToken)) {
             return $this->json([
                 'success' => false,
                 'reason' => 'bad token',
@@ -117,6 +117,48 @@ class AjaxController extends AbstractController
         }
         
         $todolist->addItem(new Item($name));
+        $this->em->flush();
+        return $this->json([
+            'success' => true,
+            'html' => $this->renderView('includes/todolist-items.html.twig', [
+                'todolist' => $todolist,
+            ]),
+        ]);
+    }
+    
+    /**
+     * @Route("/update-item/{hash}/{id}", name="UPDATE_ITEM",options={"expose"=true})
+     */
+    public function updateItem(Request $request, string $hash, int $id)
+    {
+        if (!$item = $this->itemRepository->getByHashAndIs($hash, $id)) {
+            return $this->json([
+                'success' => false,
+                'reason' => 'no item',
+            ]);
+        }
+//        if (!$submittedToken = $request->query->get('token')) {
+//            return $this->json([
+//                'success' => false,
+//                'reason' => 'no token',
+//            ]);
+//        }
+//
+//        if (!$this->isCsrfTokenValid('update-item', $submittedToken)) {
+//            return $this->json([
+//                'success' => false,
+//                'reason' => 'bad token',
+//            ]);
+//        }
+        
+        if (!$isChecked = $request->query->get('isChecked')) {
+            return $this->json([
+                'success' => false,
+                'reason' => 'no ischecked',
+            ]);
+        }
+    
+        $item->setIsChecked($isChecked);
         $this->em->flush();
         return $this->json([
             'success' => true,

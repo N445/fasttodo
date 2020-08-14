@@ -13,9 +13,10 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="HOMEPAGE")
      */
-    public function index()
+    public function index(TodolistRepository $todolistRepository)
     {
         return $this->render('default/index.html.twig', [
+            'todolists'=>$todolistRepository->findAll()
         ]);
     }
     
