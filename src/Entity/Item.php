@@ -31,11 +31,17 @@ class Item
      * @ORM\ManyToOne(targetEntity=Todolist::class, inversedBy="items")
      */
     private $todolist;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $ordre;
     
     public function __construct(string $name)
     {
         $this->setIsChecked(false);
         $this->setTitle($name);
+        $this->setOrdre(0);
     }
     
     public function getId(): ?int
@@ -76,6 +82,18 @@ class Item
     {
         $this->todolist = $todolist;
         
+        return $this;
+    }
+
+    public function getOrdre(): ?int
+    {
+        return $this->ordre;
+    }
+
+    public function setOrdre(int $ordre): self
+    {
+        $this->ordre = $ordre;
+
         return $this;
     }
 }

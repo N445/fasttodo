@@ -1,9 +1,14 @@
-<ul>
+<ul class="list-group items">
     {% for item in todolist.items %}
-        <li>
-            <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input update-item" id="{{ item.id }}">
-                <label class="custom-control-label" for="{{ item.id }}">{{ item.title }}</label>
+        <li class="list-group-item item" data-id="{{ item.id }}" data-order="{{ item.ordre }}">
+            <div class="d-flex justify-content-between">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input update-item" id="{{ item.id }}"{% if item.isChecked %} checked="checked"{% endif %}>
+                    <label class="custom-control-label" for="{{ item.id }}">{{ item.title }}</label>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-grip-lines"></i>
+                </div>
             </div>
         </li>
     {% endfor %}
