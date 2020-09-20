@@ -22,3 +22,14 @@
     {% endfor %}
 </div>
 {% endblock %}
+
+{% block javascripts %}
+    <script>
+        console.log(encodeURIComponent('http://example.com/books/1'))
+        const es = new EventSource('http://localhost:3030/.well-known/mercure?topic=' + encodeURIComponent('http://example.com/books/1'));
+        es.onmessage = e => {
+            // Will be called every time an update is published by the server
+            console.log(JSON.parse(e.data));
+        }
+    </script>
+{% endblock %}
